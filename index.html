@@ -356,10 +356,30 @@
       display: inline-block;
       animation: blink 1.4s ease-in-out infinite;
     }
+    .blink-dot.open {
+      background: #22c55e;
+      animation: blink-green 1.4s ease-in-out infinite;
+    }
     @keyframes blink {
       0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--red); }
       50% { opacity: 0.3; box-shadow: none; }
     }
+    @keyframes blink-green {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px #22c55e; }
+      50% { opacity: 0.3; box-shadow: none; }
+    }
+    .hours-table {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3px 16px;
+      font-size: 0.87rem;
+      line-height: 1.7;
+    }
+    .hours-table .day { color: rgba(255,255,255,0.55); }
+    .hours-table .time { color: rgba(255,255,255,0.85); font-weight: 500; }
+    .hours-table .today-day { color: var(--red); font-weight: 600; }
+    .hours-table .today-time { color: var(--red); font-weight: 600; }
 
     /* ── STATS ── */
     .stats-strip {
@@ -1184,8 +1204,8 @@
       </div>
     </div>
     <div class="hero-status">
-      <span class="blink-dot"></span>
-      Açık &nbsp;&middot;&nbsp; Şenol Güneş Bulvarı Paralelinde
+      <span class="blink-dot" id="statusDot"></span>
+      <span id="statusText">Açık &nbsp;&middot;&nbsp; 11:00–02:00 &nbsp;&middot;&nbsp; Pazar kapalı</span>
     </div>
   </div>
 </section>
@@ -1709,7 +1729,15 @@
             <div class="contact-item-icon"><i class="fas fa-clock"></i></div>
             <div class="contact-item-text">
               <strong>Çalışma Saatleri</strong>
-              Çalışma saatleri için Google Maps'i kontrol edin
+              <div class="hours-table" id="hoursTable">
+                <span class="day" data-day="1">Pazartesi</span><span class="time" data-day="1">11:00 – 02:00</span>
+                <span class="day" data-day="2">Salı</span><span class="time" data-day="2">11:00 – 02:00</span>
+                <span class="day" data-day="3">Çarşamba</span><span class="time" data-day="3">11:00 – 02:00</span>
+                <span class="day" data-day="4">Perşembe</span><span class="time" data-day="4">11:00 – 02:00</span>
+                <span class="day" data-day="5">Cuma</span><span class="time" data-day="5">11:00 – 02:00</span>
+                <span class="day" data-day="6">Cumartesi</span><span class="time" data-day="6">11:00 – 02:00</span>
+                <span class="day" data-day="0">Pazar</span><span class="time" data-day="0" style="color:rgba(255,255,255,0.4)">Kapalı</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1940,6 +1968,34 @@
       document.getElementById('formSuccess').classList.remove('show');
     }, 5000);
   }
+
+  // ── OPEN/CLOSED STATUS ──
+  (function() {
+    var now = new Date();
+    var day = now.getDay();   // 0=Pazar, 1=Pzt … 6=Cmt
+    var hour = now.getHours();
+    var min = now.getMinutes();
+    var timeVal = hour * 60 + min;
+    // Açık: 11:00–02:00 (gece yarısını geçiyor)
+    // 11:00 = 660dk, 02:00 = 120dk — gece yarısını geçen aralık
+    var isOpen = day !== 0 && (timeVal >= 660 || timeVal < 120);
+
+    var dot = document.getElementById('statusDot');
+    var txt = document.getElementById('statusText');
+
+    if (isOpen) {
+      dot.classList.add('open');
+      txt.innerHTML = 'Şu an açık &nbsp;&middot;&nbsp; 11:00–02:00 &nbsp;&middot;&nbsp; Pazar kapalı';
+    } else {
+      txt.innerHTML = 'Şu an kapalı &nbsp;&middot;&nbsp; 11:00–02:00 &nbsp;&middot;&nbsp; Pazar kapalı';
+    }
+
+    // Bugünün satırını vurgula
+    var dayCells = document.querySelectorAll('#hoursTable [data-day="' + day + '"]');
+    dayCells.forEach(function(el) {
+      el.classList.add(el.classList.contains('day') ? 'today-day' : 'today-time');
+    });
+  })();
 </script>
 </body>
 </html>
