@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARAT Mersin Tantuni & Çorba — Ümraniye/İstanbul</title>
+  <meta name="description" content="ARAT Mersin Tantuni & Çorba — Ümraniye'nin en sevilen tantuni ve çorba durağı. Et tantuni, kellepaça, beyran çorbası ve daha fazlası.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --black-pure: #000000;
+      --red: #e8222e;
+      --red-deep: #a8131c;
+      --white: #ffffff;
+      --card-bg: #161616;
+      --light: #f7f5f2;
+      --radius: 10px;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(to right, var(--red), var(--red-deep));
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed;
+      top: 3px; left: 0; right: 0;
+      background: var(--black-pure);
+      border-bottom: 2px solid var(--red);
+      z-index: 1000;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--red); }
+
+    .nav-order-wrap { position: relative; }
+
+    .btn-order-nav {
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      padding: 9px 20px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+      text-transform: uppercase;
+    }
+    .btn-order-nav:hover { background: var(--red-deep); }
+
+    .order-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--red);
+      border-radius: var(--radius);
+      min-width: 210px;
+      padding: 8px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 100;
+    }
+    .order-dropdown.open { display: flex; }
+
+    .order-dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 7px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--white);
+      transition: background 0.15s;
+    }
+    .order-dropdown a:hover { background: rgba(232,34,46,0.15); }
+    .order-dropdown a .plat-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--red);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--black-pure);
+      z-index: 1050;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+    .mobile-menu a:hover { color: var(--red); }
+    .mobile-menu .mobile-order-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+      width: 260px;
+    }
+    .mobile-menu .mobile-order-links a {
+      font-size: 0.95rem;
+      background: var(--card-bg);
+      border: 1px solid var(--red);
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mobile-menu-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      background: none;
+      border: none;
+      color: var(--red);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: -20%;
+      background-image: url('images/hero.png');
+      background-size: cover;
+      background-position: center;
+      will-change: transform;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.62);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 20px;
+      max-width: 900px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,34,46,0.15);
+      border: 1px solid rgba(232,34,46,0.5);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-badge .star { color: #ffd700; }
+
+    .hero-title-main {
+      font-family: var(--font-display);
+      font-size: clamp(90px, 18vw, 180px);
+      line-height: 0.9;
+      color: var(--red);
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 60px rgba(232,34,46,0.4);
+    }
+
+    .hero-title-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(20px, 4vw, 36px);
+      color: var(--white);
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .hero-desc {
+      font-style: italic;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .hero-icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 36px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+      flex-wrap: wrap;
+    }
+    .hero-icons span {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .hero-icons img.twemoji {
+      width: 22px; height: 22px;
+    }
+    .hero-icon-sep {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.7rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      text-transform: uppercase;
+    }
+    .btn-primary:hover { background: var(--red-deep); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      padding: 13px 30px;
+      border-radius: var(--radius);
+      border: 2px solid var(--white);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      text-transform: uppercase;
+      position: relative;
+    }
+    .btn-outline:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+
+    .hero-cta-wrap { position: relative; display: inline-block; }
+
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .blink-dot {
+      width: 8px; height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      display: inline-block;
+      animation: blink 1.4s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--red); }
+      50% { opacity: 0.3; box-shadow: none; }
+    }
+
+    /* ── STATS ── */
+    .stats-strip {
+      background: var(--black-pure);
+      padding: 72px 24px;
+      border-top: 1px solid rgba(232,34,46,0.2);
+      border-bottom: 1px solid rgba(232,34,46,0.2);
+    }
+
+    .stats-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item {}
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 8vw, 80px);
+      color: var(--red);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .stat-suffix {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 52px);
+      color: var(--red);
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── PILLARS ── */
+    .pillars {
+      background: var(--black);
+      padding: 80px 24px;
+    }
+
+    .pillars-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .pillar-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(232,34,46,0.35);
+      border-radius: var(--radius);
+      padding: 44px 32px;
+      text-align: center;
+      transform-style: preserve-3d;
+      transition: box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+      will-change: transform;
+    }
+    .pillar-card:hover {
+      border-color: var(--red);
+      box-shadow: 0 20px 60px rgba(232,34,46,0.15);
+    }
+
+    .pillar-icon {
+      width: 52px; height: 52px;
+      margin: 0 auto 20px;
+    }
+
+    .pillar-card h3 {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .pillar-card p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    /* ── MENU ── */
+    .menu-section {
+      background: var(--light);
+      padding: 80px 24px;
+      color: var(--black);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 80px);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+    .menu-section .section-title { color: var(--black); }
+
+    .section-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(0,0,0,0.5);
+      margin-bottom: 40px;
+    }
+
+    .tabs-wrap {
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 40px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tabs-wrap::-webkit-scrollbar { display: none; }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      min-width: max-content;
+    }
+
+    .tab-btn {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      padding: 10px 24px;
+      border-radius: 100px;
+      border: 2px solid var(--red);
+      background: transparent;
+      color: var(--red);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .menu-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .menu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(232,34,46,0.15);
+      border-color: var(--red);
+    }
+
+    .menu-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: #e8e4e0;
+    }
+
+    .menu-card-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #e8e4e0 0%, #d4d0cc 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .menu-card-placeholder i {
+      font-size: 2.2rem;
+      color: rgba(0,0,0,0.2);
+    }
+    .menu-card-placeholder span {
+      font-size: 0.75rem;
+      color: rgba(0,0,0,0.3);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .drink-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .drink-placeholder i {
+      font-size: 2.4rem;
+      color: rgba(232,34,46,0.6);
+    }
+    .drink-placeholder span {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    .menu-card-body {
+      padding: 14px 16px;
+    }
+
+    .menu-card-name {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--black);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .menu-card-price {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--red);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── GALLERY ── */
+    .gallery-section {
+      background: var(--black-pure);
+      padding: 80px 24px;
+    }
+
+    .gallery-section .section-title { color: var(--white); }
+
+    .gallery-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+      min-height: 200px;
+    }
+    .gallery-item:hover img { transform: scale(1.07); }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      transition: border-color 0.3s;
+      pointer-events: none;
+    }
+    .gallery-item:hover::after { border-color: var(--red); }
+
+    /* ── ABOUT ── */
+    .about-section {
+      background: var(--light);
+      padding: 80px 24px;
+      color: var(--black);
+    }
+
+    .about-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-img-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+    }
+    .about-img-wrap img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+    }
+
+    .about-content {}
+
+    .about-content .section-title { color: var(--black); margin-bottom: 4px; }
+    .about-content .section-title span { color: var(--red); }
+
+    .about-tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--red);
+      margin-bottom: 24px;
+    }
+
+    .about-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(0,0,0,0.65);
+      margin-bottom: 36px;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .about-stat {
+      text-align: center;
+    }
+    .about-stat-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--red);
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(0,0,0,0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── REVIEWS ── */
+    .reviews-section {
+      background: var(--black);
+      padding: 80px 24px;
+    }
+
+    .reviews-section .section-title { color: var(--white); }
+
+    .reviews-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(232,34,46,0.25);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .review-card:hover {
+      border-color: var(--red);
+      box-shadow: 0 8px 30px rgba(232,34,46,0.1);
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 14px;
+    }
+    .review-stars i { color: var(--red); font-size: 0.9rem; }
+
+    .review-text {
+      font-style: italic;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .review-author {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── ORDER PLATFORMS ── */
+    .order-section {
+      background: var(--red);
+      padding: 72px 24px;
+      text-align: center;
+    }
+
+    .order-section .section-title {
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .order-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 48px;
+    }
+
+    .platforms-grid {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .platform-card {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: var(--radius);
+      padding: 24px 16px;
+      transition: background 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .platform-card:hover {
+      background: rgba(255,255,255,0.22);
+      transform: translateY(-4px);
+    }
+
+    .platform-card i {
+      font-size: 2rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .platform-card span {
+      display: block;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: var(--black);
+      padding: 80px 24px;
+    }
+
+    .contact-section .section-title { color: var(--white); }
+
+    .contact-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .contact-item-icon {
+      width: 40px; height: 40px;
+      background: rgba(232,34,46,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item-icon i { color: var(--red); font-size: 1rem; }
+
+    .contact-item-text {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.75);
+    }
+    .contact-item-text strong {
+      display: block;
+      color: var(--white);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .map-wrap {
+      margin-top: 20px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(232,34,46,0.25);
+    }
+
+    .contact-form {
+      background: var(--card-bg);
+      border: 1px solid rgba(232,34,46,0.2);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+    }
+
+    .contact-form h3 {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 7px;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--red);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .btn-submit {
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-submit:hover { background: var(--red-deep); }
+
+    .form-success {
+      display: none;
+      background: rgba(40,167,69,0.15);
+      border: 1px solid rgba(40,167,69,0.4);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #5cb85c;
+      margin-top: 12px;
+    }
+    .form-success.show { display: block; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--black-pure);
+      padding: 40px 24px;
+      border-top: 2px solid var(--red);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .footer-brand img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+    .footer-brand-text {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--red);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── FADE-UP ANIMATION ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header { margin-bottom: 48px; }
+    .section-header.center { text-align: center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-order-wrap { display: none; }
+      .hamburger { display: block; }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .platforms-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:first-child { grid-row: span 1; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-brand { justify-content: center; }
+      .footer-links { justify-content: center; }
+
+      .hero-bg {
+        background-attachment: scroll;
+        inset: 0;
+        transform: none !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .platforms-grid { grid-template-columns: repeat(2, 1fr); }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-cta { flex-direction: column; align-items: center; }
+    }
+
+    @media (hover: hover) {
+      .pillar-card { cursor: default; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="#" class="nav-logo">
+    <img src="images/logo.png" alt="ARAT Mersin Tantuni">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menü</a></li>
+    <li><a href="#about">Hakkımızda</a></li>
+    <li><a href="#reviews">Yorumlar</a></li>
+    <li><a href="#contact">İletişim</a></li>
+  </ul>
+  <div class="nav-order-wrap">
+    <button class="btn-order-nav" id="navOrderBtn">
+      <i class="fas fa-motorcycle"></i> Sipariş Ver <i class="fas fa-chevron-down" style="font-size:0.7rem"></i>
+    </button>
+    <div class="order-dropdown" id="navOrderDropdown">
+      <a href="https://www.tgoyemek.com" target="_blank" rel="noopener">
+        <span class="plat-dot" style="background:#e8222e"></span>TgoYemek
+      </a>
+      <a href="https://www.getiryemek.com" target="_blank" rel="noopener">
+        <span class="plat-dot" style="background:#5c3d99"></span>Getir Yemek
+      </a>
+      <a href="https://www.trendyolyemek.com" target="_blank" rel="noopener">
+        <span class="plat-dot" style="background:#f27a1a"></span>Trendyol Yemek
+      </a>
+      <a href="https://www.yemeksepeti.com" target="_blank" rel="noopener">
+        <span class="plat-dot" style="background:#ff8a00"></span>Yemeksepeti
+      </a>
+    </div>
+  </div>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menüyü Aç">
+    <i class="fas fa-bars"></i>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileClose" aria-label="Kapat">
+    <i class="fas fa-xmark"></i>
+  </button>
+  <a href="#menu" onclick="closeMobile()">Menü</a>
+  <a href="#about" onclick="closeMobile()">Hakkımızda</a>
+  <a href="#reviews" onclick="closeMobile()">Yorumlar</a>
+  <a href="#contact" onclick="closeMobile()">İletişim</a>
+  <div class="mobile-order-links">
+    <a href="https://www.tgoyemek.com" target="_blank" rel="noopener">
+      <i class="fas fa-motorcycle" style="color:var(--red)"></i> TgoYemek
+    </a>
+    <a href="https://www.getiryemek.com" target="_blank" rel="noopener">
+      <i class="fas fa-motorcycle" style="color:#5c3d99"></i> Getir Yemek
+    </a>
+    <a href="https://www.trendyolyemek.com" target="_blank" rel="noopener">
+      <i class="fas fa-motorcycle" style="color:#f27a1a"></i> Trendyol Yemek
+    </a>
+    <a href="https://www.yemeksepeti.com" target="_blank" rel="noopener">
+      <i class="fas fa-motorcycle" style="color:#ff8a00"></i> Yemeksepeti
+    </a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-badge">
+      <span class="star">&#9733;</span> Google 4.0 &nbsp;&middot;&nbsp; Ümraniye &nbsp;&middot;&nbsp; 7/24 Lezzet
+    </div>
+    <div class="hero-title-main">ARAT</div>
+    <div class="hero-title-sub">MERSİN TANTUNİ &amp; ÇORBA</div>
+    <p class="hero-desc">
+      Mersin'in tantuni lezzeti, gece yarısının çorbası —<br>şimdi Ümraniye'de
+    </p>
+    <div class="hero-icons">
+      <span>
+        <img class="twemoji" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f32f.svg" alt="Tantuni"> Tantuni
+      </span>
+      <span class="hero-icon-sep">·</span>
+      <span>
+        <img class="twemoji" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f372.svg" alt="Çorba"> Çorba
+      </span>
+      <span class="hero-icon-sep">·</span>
+      <span>
+        <img class="twemoji" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f319.svg" alt="7/24"> 7/24 Lezzet
+      </span>
+    </div>
+    <div class="hero-cta">
+      <a href="#menu" class="btn-primary">Menüyü Gör</a>
+      <div class="hero-cta-wrap">
+        <button class="btn-outline" id="heroOrderBtn">Sipariş Ver <i class="fas fa-chevron-down" style="font-size:0.7rem;margin-left:4px"></i></button>
+        <div class="order-dropdown" id="heroOrderDropdown" style="left:50%;transform:translateX(-50%)">
+          <a href="https://www.tgoyemek.com" target="_blank" rel="noopener">
+            <span class="plat-dot" style="background:#e8222e"></span>TgoYemek
+          </a>
+          <a href="https://www.getiryemek.com" target="_blank" rel="noopener">
+            <span class="plat-dot" style="background:#5c3d99"></span>Getir Yemek
+          </a>
+          <a href="https://www.trendyolyemek.com" target="_blank" rel="noopener">
+            <span class="plat-dot" style="background:#f27a1a"></span>Trendyol Yemek
+          </a>
+          <a href="https://www.yemeksepeti.com" target="_blank" rel="noopener">
+            <span class="plat-dot" style="background:#ff8a00"></span>Yemeksepeti
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-status">
+      <span class="blink-dot"></span>
+      Açık &nbsp;&middot;&nbsp; Şenol Güneş Bulvarı Paralelinde
+    </div>
+  </div>
+</section>
+
+<!-- Stats Strip -->
+<section class="stats-strip">
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-item fade-up">
+      <div>
+        <span class="stat-number" data-target="4.0" data-decimal="1">0.0</span>
+        <span class="stat-suffix">&#9733;</span>
+      </div>
+      <div class="stat-label">Google Puanı</div>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.1s">
+      <div>
+        <span class="stat-number" data-target="20" data-suffix="+">0</span>
+      </div>
+      <div class="stat-label">Çorba &amp; Tantuni Çeşidi</div>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.2s">
+      <div>
+        <span class="stat-number" data-target="7" data-slash="/24">0</span>
+      </div>
+      <div class="stat-label">Açık</div>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.3s">
+      <div>
+        <span class="stat-number" data-target="100" data-suffix="%">0</span>
+      </div>
+      <div class="stat-label">Mersin Lezzeti</div>
+    </div>
+  </div>
+</section>
+
+<!-- Pillars -->
+<section class="pillars">
+  <div class="pillars-grid">
+    <div class="pillar-card fade-up" id="tilt-0">
+      <img class="pillar-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f32f.svg" alt="Tantuni">
+      <h3>Mersin'in Gerçek Tantunisi</h3>
+      <p>Et ve tavuk tantuni, yarım porsiyon, dürüm ve yoğurtlu çeşitleriyle — Mersin sokağının özgün lezzeti.</p>
+    </div>
+    <div class="pillar-card fade-up" style="transition-delay:0.1s" id="tilt-1">
+      <img class="pillar-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f372.svg" alt="Çorba">
+      <h3>Gece Yarısı Çorbaları</h3>
+      <p>Kellepaça, beyran, işkembe — İstanbul gecesinin vazgeçilmezi. Gece yarısı açlığına en sıcak cevap.</p>
+    </div>
+    <div class="pillar-card fade-up" style="transition-delay:0.2s" id="tilt-2">
+      <img class="pillar-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36e.svg" alt="Tatlı">
+      <h3>Sıcak Tatlılar</h3>
+      <p>Künefe, kadayıf, fırın sütlaç — sıcacık kapanış. Yemek bitmeden tatlısı düşünülür.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Menu -->
+<section class="menu-section" id="menu">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="section-header fade-up">
+      <div class="section-title">Menümüz</div>
+      <div class="section-subtitle">Taze, lezzetli, Mersin usulü</div>
+    </div>
+    <div class="tabs-wrap fade-up">
+      <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="corbalar">ÇORBALAR</button>
+        <button class="tab-btn" data-tab="tantuni">TANTUNİ</button>
+        <button class="tab-btn" data-tab="cigkofte">ÇİĞKÖFTE</button>
+        <button class="tab-btn" data-tab="tatlilar">TATLILAR</button>
+        <button class="tab-btn" data-tab="salatalar">SALATALAR</button>
+        <button class="tab-btn" data-tab="icecekler">İÇECEKLER</button>
+      </div>
+    </div>
+
+    <!-- ÇORBALAR -->
+    <div class="tab-panel active" id="tab-corbalar">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/2ca70857-c1c5-4168-a82a-f53ac19aa98919a3f5aa-7c62-4b83-8193-ddc5676b29f2.jpg" alt="Kellepaça Çorbası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Kellepaça Çorbası</div>
+            <div class="menu-card-price">370 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/e79f9d07-2072-4837-b751-a5ff57775b112cc68801-4d2b-44d6-bd0e-f2eebb01e197.jpg" alt="Beyran Çorbası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Beyran Çorbası</div>
+            <div class="menu-card-price">390 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/cbd7603d-a6dd-4f32-a7a1-df2583b2000eac336e04-0bf8-4fb6-9ae7-66e36683f21f.jpg" alt="İşkembe Çorbası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">İşkembe Çorbası</div>
+            <div class="menu-card-price">340 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/52698ed6-7375-428e-ae0d-b0d843319363cbd24250-ebdd-4cc0-b4cd-a97480b045f8.jpg" alt="Tuzlama Çorbası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Tuzlama Çorbası</div>
+            <div class="menu-card-price">360 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/fed9c0a2-4571-4c7f-ae15-d6a860a608cb56f27c11-582c-4be1-9d91-b3b4b28b11ec.jpg" alt="Ezogelin Çorbası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Ezogelin Çorbası</div>
+            <div class="menu-card-price">140 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/3fe31311-2fbf-4118-b316-a31209b7ca5ae3b5893e-94e2-4d26-b12f-318276b9a7df.jpg" alt="Tavuksuyu Çorbası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Tavuksuyu Çorbası</div>
+            <div class="menu-card-price">190 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/c467a72c-7812-4e72-be9a-f44b513e5d0cfa552426-2e19-4cee-8826-352464a22e6a.jpg" alt="Mix (Karışık) Çorba" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Mix (Karışık) Çorba</div>
+            <div class="menu-card-price">380 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/02a619d9-4c5d-4b00-ab46-9299135443e227d654e5-8ae1-41c4-83c8-63829bdd1e3b.jpg" alt="Atom Çorbası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Atom Çorbası</div>
+            <div class="menu-card-price">470 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/8a3d0ec5-68f1-4501-a4c5-12abf07cf178fac56947-df25-4ee2-af06-c776d1cf3235.jpeg" alt="Kemik Suyu Çorbası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Kemik Suyu Çorbası</div>
+            <div class="menu-card-price">270 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-placeholder">
+            <i class="fas fa-bowl-food"></i>
+            <span>ARAT</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Etli Ezogelin Çorbası</div>
+            <div class="menu-card-price">360 ₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TANTUNİ -->
+    <div class="tab-panel" id="tab-tantuni">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/b48e656f-03f8-450e-a43b-930a34f6fc36db1c47d4-244f-48f4-86ad-9e4336845203.jpg" alt="Et Tantuni Yarım" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Et Tantuni Yarım</div>
+            <div class="menu-card-price">350 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/2b8c951a-9bcc-43e6-b748-42e3b813cf9c8a8b2303-85d2-467c-82a0-50e6068b84b6.jpg" alt="Et Tantuni Dürüm" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Et Tantuni Dürüm</div>
+            <div class="menu-card-price">350 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/1a3fe2ca-9e0c-49ab-bca9-a0bbe32f4cc00cb9be39-8011-4f7b-b461-5f93fca8d40b.jpg" alt="Yoğurtlu Et Tantuni" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Yoğurtlu Et Tantuni</div>
+            <div class="menu-card-price">450 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-placeholder">
+            <i class="fas fa-bread-slice"></i>
+            <span>ARAT</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Üç Çeyrek Ekmek Et Tantuni</div>
+            <div class="menu-card-price">525 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/df881c63-a408-433b-b884-eb410b49a0305d95d77a-0c7b-4dac-b65a-0cbdc295ee68.jpeg" alt="Cevizli Yoğurtlu Et Tantuni" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Cevizli Yoğurtlu Et Tantuni</div>
+            <div class="menu-card-price">500 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/a408ce45-f49f-4331-a98d-77cd9be954263c8d66a3-8c17-495d-a6d0-88fd870b3f71.jpg" alt="Tavuk Tantuni Yarım" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Tavuk Tantuni Yarım</div>
+            <div class="menu-card-price">190 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/1329a95f-e569-4cb3-b3eb-f84911299dc8297e45f0-595a-4522-9d53-7413c02d81fa.jpg" alt="Tavuk Tantuni Dürüm" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Tavuk Tantuni Dürüm</div>
+            <div class="menu-card-price">190 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/3f260e60-7c41-49ae-bf8f-34025f0dadf4d1d58028-1b81-4f87-ba86-796d0d5737aa.jpg" alt="Yoğurtlu Tavuk Tantuni" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Yoğurtlu Tavuk Tantuni</div>
+            <div class="menu-card-price">290 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/a7bcee46-d029-4ac4-a7b6-c074768dc6fa33e3ae72-0733-492c-a36d-d4f1fe98c9ba.jpeg" alt="Üç Çeyrek Ekmek Tavuk Tantuni" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Üç Çeyrek Ekmek Tavuk Tantuni</div>
+            <div class="menu-card-price">285 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/d4339d97-4e8f-414e-b25b-df1f9facfa7efbc729b2-32ed-4b80-92e9-25df02d88e07.jpeg" alt="Cevizli Yoğurtlu Tavuk Tantuni" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Cevizli Yoğurtlu Tavuk Tantuni</div>
+            <div class="menu-card-price">340 ₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÇİĞKÖFTE -->
+    <div class="tab-panel" id="tab-cigkofte">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/801ecf6c-9965-4bd7-9f52-eef187928934a905a558-2454-4d4d-ae59-3309c439f43e.jpg" alt="Çiğköfte Porsiyon" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Çiğköfte Porsiyon</div>
+            <div class="menu-card-price">230 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/5a33c3bf-0e56-4acb-9363-e6cea6735f9148a02d3c-0250-47c3-9bec-75195eb60a68.jpg" alt="Çiğköfte 1/2 Porsiyon" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Çiğköfte 1/2 Porsiyon</div>
+            <div class="menu-card-price">140 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/f14db2e7-99ed-4b10-9e24-703789a7a4cd983be659-c0cc-4d50-b272-6f1b991ce7eb.jpg" alt="Çiğköfte Dürüm" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Çiğköfte Dürüm</div>
+            <div class="menu-card-price">140 ₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TATLILAR -->
+    <div class="tab-panel" id="tab-tatlilar">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/e8e1b8ee-3a69-4885-abc7-620d6901c2c02fc54b0a-abd5-45cd-b148-1909248e5881.jpg" alt="Fırın Sütlaç" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Fırın Sütlaç</div>
+            <div class="menu-card-price">190 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/d24929c9-166c-4d50-8926-3b51f7caea9c18e83b95-1445-4a56-908c-e3e83203e879.jpg" alt="Kadayıf" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Kadayıf</div>
+            <div class="menu-card-price">230 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/bbf5c260-3c32-4f99-be77-dac27bca268b940c8127-e2b9-4348-9cbb-935964284eef.jpg" alt="Künefe" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Künefe</div>
+            <div class="menu-card-price">240 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/b657fcbe-325b-491d-a759-c1fe644e45cee0e731f0-2411-4d91-89c0-30a7378d4664.jpg" alt="Gül Katmeri" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Gül Katmeri</div>
+            <div class="menu-card-price">250 ₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SALATALAR -->
+    <div class="tab-panel" id="tab-salatalar">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/35d0e9cd-7ea1-4344-9e90-e2e45fe5be99437e3596-19fe-4fa7-8d0c-830fc5d08391.jpg" alt="Çoban Salata" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Çoban Salata</div>
+            <div class="menu-card-price">200 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/7b626c0a-fe3e-485e-a4aa-1014eaa17dc17318e679-e7ca-4357-9224-5b17fb473bab.jpeg" alt="Harman Salatası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Harman Salatası</div>
+            <div class="menu-card-price">190 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/8f33a5d7-60cf-4586-9147-8cfdc9ad0d4bbf014536-89e6-4a76-b15e-ca5059ccbb67.jpg" alt="Gavurdağı Salatası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Gavurdağı Salatası</div>
+            <div class="menu-card-price">240 ₺</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img class="menu-card-img" src="https://menu.myqrcodemenu.com/files/products/b322d074-b5c6-474f-890c-8a030292fb8f74567116-13a5-48ee-a866-cb1f8768a992.jpeg" alt="Kaşık Salatası" loading="lazy">
+          <div class="menu-card-body">
+            <div class="menu-card-name">Kaşık Salatası</div>
+            <div class="menu-card-price">200 ₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- İÇECEKLER -->
+    <div class="tab-panel" id="tab-icecekler">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-bottle-water"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Coca Cola 33cl</div><div class="menu-card-price">80 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-can-food"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Kutu İçecekler</div><div class="menu-card-price">80 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-glass-water"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Ayran</div><div class="menu-card-price">60 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-glass-water-droplet"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Ekşi Maya Ayran</div><div class="menu-card-price">70 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-droplet"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Su</div><div class="menu-card-price">30 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-wine-bottle"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Şalgam</div><div class="menu-card-price">80 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-mug-hot"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Çay</div><div class="menu-card-price">30 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-mug-hot"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Nescafe</div><div class="menu-card-price">100 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-coffee"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Türk Kahvesi</div><div class="menu-card-price">100 ₺</div></div>
+        </div>
+        <div class="menu-card">
+          <div class="drink-placeholder"><i class="fas fa-bottle-droplet"></i><span>İçecek</span></div>
+          <div class="menu-card-body"><div class="menu-card-name">Litrelik İçecekler</div><div class="menu-card-price">120 ₺</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery-section">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-header center fade-up">
+      <div class="section-title" style="color:var(--white)">Lezzetlerimiz</div>
+    </div>
+    <div class="gallery-grid fade-up">
+      <div class="gallery-item">
+        <img src="https://menu.myqrcodemenu.com/files/products/02a619d9-4c5d-4b00-ab46-9299135443e227d654e5-8ae1-41c4-83c8-63829bdd1e3b.jpg" alt="Atom Çorbası" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://menu.myqrcodemenu.com/files/products/2b8c951a-9bcc-43e6-b748-42e3b813cf9c8a8b2303-85d2-467c-82a0-50e6068b84b6.jpg" alt="Et Tantuni Dürüm" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://menu.myqrcodemenu.com/files/products/bbf5c260-3c32-4f99-be77-dac27bca268b940c8127-e2b9-4348-9cbb-935964284eef.jpg" alt="Künefe" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://menu.myqrcodemenu.com/files/products/801ecf6c-9965-4bd7-9f52-eef187928934a905a558-2454-4d4d-ae59-3309c439f43e.jpg" alt="Çiğköfte" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://menu.myqrcodemenu.com/files/products/e79f9d07-2072-4837-b751-a5ff57775b112cc68801-4d2b-44d6-bd0e-f2eebb01e197.jpg" alt="Beyran Çorbası" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about-section" id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap fade-up">
+      <img src="https://menu.myqrcodemenu.com/files/products/1a3fe2ca-9e0c-49ab-bca9-a0bbe32f4cc00cb9be39-8011-4f7b-b461-5f93fca8d40b.jpg" alt="ARAT Tantuni" loading="lazy">
+    </div>
+    <div class="about-content fade-up" style="transition-delay:0.15s">
+      <div class="section-title">Mersin'den<br><span>Ümraniye'ye.</span></div>
+      <div class="about-tagline">Otantik lezzet, samimi hizmet.</div>
+      <p class="about-text">
+        ARAT Mersin Tantuni &amp; Çorba, Mersin'in özgün tantuni ve çorba kültürünü Ümraniye'ye taşıyor. Gece yarısı açlığına kellepaça ve beyran çorbası, gündüzün hızlı atıştırması için et ve tavuk tantuni — hepsi taze, hepsi lezzetli.
+      </p>
+      <p class="about-text" style="margin-top:-16px">
+        Kellepaça, beyran, işkembe gibi geceleri açan damak zevkleri ile et ve tavuk tantuni çeşitleri bir arada. Ümraniye'nin en sevilen tantuni ve çorba durağı.
+      </p>
+      <div class="about-stats">
+        <div class="about-stat">
+          <div class="about-stat-num">4.0&#9733;</div>
+          <div class="about-stat-label">Google Puanı</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">20+</div>
+          <div class="about-stat-label">Çeşit</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">Ümraniye</div>
+          <div class="about-stat-label">İstanbul</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews-section" id="reviews">
+  <div style="max-width:1000px;margin:0 auto">
+    <div class="section-header center fade-up">
+      <div class="section-title" style="color:var(--white)">Müşterilerimiz Ne Diyor</div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="review-text">"Everything is perfect, thank you...... Food: 5 Service: 5 Atmosphere: 5"</p>
+        <div class="review-author">— Google Yorumu</div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:0.1s">
+        <div class="review-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star"></i><i class="far fa-star"></i>
+        </div>
+        <p class="review-text">"A nice place in terms of overall taste and service"</p>
+        <div class="review-author">— Google Yorumu</div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:0.2s">
+        <div class="review-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="review-text">"Temiz ve lezzetli hem yemekler hem de hizmet olarak standartların çok üstünde"</p>
+        <div class="review-author">— Google Yorumu</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Order Platforms -->
+<section class="order-section">
+  <div class="section-title">Online Sipariş Ver!</div>
+  <p class="order-desc">Tek tıkla sipariş — kapına gelsin</p>
+  <div class="platforms-grid">
+    <a href="https://www.trendyolyemek.com" target="_blank" rel="noopener" class="platform-card">
+      <i class="fas fa-motorcycle"></i>
+      <span>Trendyol Yemek</span>
+    </a>
+    <a href="https://www.yemeksepeti.com" target="_blank" rel="noopener" class="platform-card">
+      <i class="fas fa-basket-shopping"></i>
+      <span>Yemeksepeti</span>
+    </a>
+    <a href="https://www.getiryemek.com" target="_blank" rel="noopener" class="platform-card">
+      <i class="fas fa-bolt"></i>
+      <span>Getir Yemek</span>
+    </a>
+    <a href="https://www.tgoyemek.com" target="_blank" rel="noopener" class="platform-card">
+      <i class="fas fa-store"></i>
+      <span>TgoYemek</span>
+    </a>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section" id="contact">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-header fade-up">
+      <div class="section-title" style="color:var(--white)">İletişim</div>
+    </div>
+    <div class="contact-grid">
+      <div class="fade-up">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-location-dot"></i></div>
+            <div class="contact-item-text">
+              <strong>Adres</strong>
+              Çamlık Mahallesi Şehit Burak Kurtuluş Caddesi No:142/A<br>
+              Şenol Güneş Bulvarı Paralelinde, 34750 Ümraniye/İstanbul
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-item-text">
+              <strong>Telefon</strong>
+              <a href="tel:02165947808" style="color:var(--red)">(0216) 594 78 08</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-clock"></i></div>
+            <div class="contact-item-text">
+              <strong>Çalışma Saatleri</strong>
+              Çalışma saatleri için Google Maps'i kontrol edin
+            </div>
+          </div>
+        </div>
+        <div class="map-wrap" style="margin-top:24px">
+          <iframe
+            src="https://www.google.com/maps?q=Çamlık+Mahallesi+Şehit+Burak+Kurtuluş+Caddesi+142,+Ümraniye+İstanbul&output=embed"
+            width="100%" height="320"
+            style="border:0;border-radius:8px;display:block"
+            allowfullscreen loading="lazy">
+          </iframe>
+        </div>
+      </div>
+      <div class="fade-up" style="transition-delay:0.15s">
+        <div class="contact-form">
+          <h3>Bize Ulaşın</h3>
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label>Adınız</label>
+              <input type="text" placeholder="Adınız Soyadınız" required>
+            </div>
+            <div class="form-group">
+              <label>Telefon</label>
+              <input type="tel" placeholder="05XX XXX XX XX">
+            </div>
+            <div class="form-group">
+              <label>Mesajınız</label>
+              <textarea placeholder="Mesajınızı yazın..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">
+              Gönder <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+          <div class="form-success" id="formSuccess">
+            Mesajınız alındı, en kısa sürede dönüş yapacağız!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="images/logo.png" alt="ARAT">
+      <div class="footer-brand-text">
+        Mersin Tantuni &amp; Çorba<br>
+        Ümraniye / İstanbul
+      </div>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 &nbsp;&middot;&nbsp; ARAT &nbsp;&middot;&nbsp; Ümraniye/İstanbul
+    </div>
+    <div class="footer-links">
+      <a href="https://www.trendyolyemek.com" target="_blank" rel="noopener">Trendyol</a>
+      <a href="https://www.yemeksepeti.com" target="_blank" rel="noopener">Yemeksepeti</a>
+      <a href="https://www.getiryemek.com" target="_blank" rel="noopener">Getir</a>
+      <a href="https://www.tgoyemek.com" target="_blank" rel="noopener">TgoYemek</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── PROGRESS BAR ──
+  const progressBar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+
+  // ── PARALLAX ──
+  const heroBg = document.getElementById('heroBg');
+  let parallaxTicking = false;
+  function updateParallax() {
+    if (window.innerWidth <= 768) return;
+    const scrollY = window.scrollY;
+    heroBg.style.transform = 'translateY(' + (scrollY * 0.35) + 'px)';
+    parallaxTicking = false;
+  }
+
+  window.addEventListener('scroll', function() {
+    updateProgress();
+    if (!parallaxTicking) {
+      requestAnimationFrame(updateParallax);
+      parallaxTicking = true;
+    }
+  }, { passive: true });
+
+  // ── NAV ORDER DROPDOWN ──
+  const navOrderBtn = document.getElementById('navOrderBtn');
+  const navOrderDropdown = document.getElementById('navOrderDropdown');
+  navOrderBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    navOrderDropdown.classList.toggle('open');
+    heroOrderDropdown.classList.remove('open');
+  });
+
+  // ── HERO ORDER DROPDOWN ──
+  const heroOrderBtn = document.getElementById('heroOrderBtn');
+  const heroOrderDropdown = document.getElementById('heroOrderDropdown');
+  heroOrderBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    heroOrderDropdown.classList.toggle('open');
+    navOrderDropdown.classList.remove('open');
+  });
+
+  document.addEventListener('click', function() {
+    navOrderDropdown.classList.remove('open');
+    heroOrderDropdown.classList.remove('open');
+  });
+
+  // ── MOBILE MENU ──
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+
+  hamburgerBtn.addEventListener('click', function() {
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  mobileClose.addEventListener('click', closeMobile);
+
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── TABS ──
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tabs.forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── FADE-UP ──
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const fadeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  fadeEls.forEach(function(el) { fadeObserver.observe(el); });
+
+  // First visible elements
+  document.querySelectorAll('.hero .fade-up').forEach(function(el) {
+    setTimeout(function() { el.classList.add('visible'); }, 200);
+  });
+
+  // ── NUMBER COUNTER ──
+  function animateCounter(el, target, decimals, duration) {
+    const start = performance.now();
+    const suffix = el.dataset.suffix || '';
+    const slash = el.dataset.slash || '';
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = target * eased;
+      if (decimals > 0) {
+        el.textContent = current.toFixed(decimals) + suffix;
+      } else {
+        el.textContent = Math.round(current) + (slash ? slash : suffix);
+      }
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        if (decimals > 0) {
+          el.textContent = target.toFixed(decimals) + suffix;
+        } else {
+          el.textContent = Math.round(target) + (slash ? slash : suffix);
+        }
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  const statsGrid = document.getElementById('statsGrid');
+  let statsCounted = false;
+  const statsObserver = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !statsCounted) {
+      statsCounted = true;
+      document.querySelectorAll('.stat-number[data-target]').forEach(function(el) {
+        const target = parseFloat(el.dataset.target);
+        const decimals = parseInt(el.dataset.decimal || '0', 10);
+        animateCounter(el, target, decimals, 1700);
+      });
+    }
+  }, { threshold: 0.3 });
+  statsObserver.observe(statsGrid);
+
+  // ── 3D TILT (desktop only) ──
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.pillar-card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        const rotX = -dy * 10;
+        const rotY = dx * 10;
+        card.style.transition = 'transform 0.05s, box-shadow 0.3s, border-color 0.3s';
+        card.style.transform = 'perspective(1000px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) scale(1.03)';
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.3s, border-color 0.3s';
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+      });
+    });
+  }
+
+  // ── CONTACT FORM ──
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('formSuccess').classList.add('show');
+    e.target.reset();
+    setTimeout(function() {
+      document.getElementById('formSuccess').classList.remove('show');
+    }, 5000);
+  }
+</script>
+</body>
+</html>
